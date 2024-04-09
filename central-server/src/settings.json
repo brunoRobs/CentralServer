@@ -1,0 +1,67 @@
+{
+    "api": {
+        "auth": {
+            "baseURL": "http://localhost:8080/CentralServerConfig/auth",
+            "register": "/signup",
+            "login": "/signin",
+            "logout": "/signout"
+        },
+        "agents": {},
+        "configs": {
+            "baseURL": "http://localhost:8080/CentralServerConfig/config",
+            "create": "/create",
+            "get": "/id",
+            "update": "/id",
+            "delete": "/id",
+            "getAll": ""
+        },
+        "extensions": {},
+        "logs": {},
+        "profiles": {},
+        "superusers": {},
+        "tenants": {},
+        "users": {}
+    },
+    "router": {
+        "login": {
+            "name": "login",
+            "path": "/"
+        },
+        "home": {
+            "name": "home",
+            "path": "/home",
+            "agents": {
+                "name": "agents",
+                "path": "/home/agents"
+            },
+            "configs": {
+                "name": "configs",
+                "path": "/home/configs"
+            },
+            "extensions": {
+                "name": "extensions",
+                "path": "/home/extensions"
+            },
+            "logs": {
+                "name": "logs",
+                "path": "/home/logs"
+            },
+            "profiles": {
+                "name": "profiles",
+                "path": "/home/profiles"
+            },
+            "superusers": {
+                "name": "superusers",
+                "path": "/home/superusers"
+            },
+            "tenants": {
+                "name": "tenants",
+                "path": "/home/tenants"
+            },
+            "users": {
+                "name": "users",
+                "path": "/home/users"
+            }
+        }
+    }
+}
