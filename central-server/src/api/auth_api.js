@@ -1,9 +1,5 @@
-import axios from 'axios';
+import api from './api';
 import settings from '../settings.json';
-
-const api = axios.create({
-    baseURL: settings.api.auth.baseURL
-});
 
 class AuthAPI {
     async register(object) {
@@ -22,9 +18,14 @@ class AuthAPI {
 
     async logout() {
         const response = api.post(settings.api.auth.logout).then(response => {
+            api.defaults.headers.Authorization = '';
             return response;
         });
         return response;
+    }
+
+    setToken(token) {
+        api.defaults.headers.Authorization = token;
     }
 }
 

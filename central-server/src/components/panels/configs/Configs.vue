@@ -5,35 +5,84 @@
 </script>
 
 <template>
-    <Modal :showModal="showModal" @close="showModal = false" :component="component" />
-    <table>
-        <thead>
-            <tr>
-                <th v-for="(key, index) in store.getKeys()" :key="`${key}:${index}`">
-                    {{ key }}
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="(config, index) in store.getConfigs(1)" :key="`${config}:${index}`">
-                <ConfigsRow :config="config" />
-            </tr>
-        </tbody>
-    </table>
+    <div class="configs">
+        <Modal :showModal="createModal" :component="createConfig" @close="create(false)" />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th v-for="(key, index) in store.getKeys()" :key="`${key}:${index}`">
+                        {{ key }}
+                    </th>
+                    <th></th>
+                    <th><i title="Create config" class="icon bi-send-plus-fill" @click="create(true)" /></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(config, index) in store.getConfigs(1)" :key="`${config}:${index}`">
+                    <ConfigsRow :config="config" />
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
 </template>
 
 <script>
+    import Modal from '@/components/Modal.vue';
+    import CreateConfig from './CreateConfig.vue';
     import ConfigsRow from './ConfigsRow.vue';
-    import Modal from '../../Modal.vue';
-    import Agents from '../Agents.vue';
+    import { configsManager } from '@/managers/configs_manager';
 
     export default {
-        components: { ConfigsRow, Modal },
+        async beforeMount() {
+            try {
+                await configsManager.updateStore();
+            } catch (err) {
+                this.$emit('error', err.response.data);
+            }
+        },
+        components: { Modal },
         data() {
             return {
-                showModal: false,
-                component: Agents
+                createModal: false,
+                createConfig: CreateConfig,
             }
-        }
+        },
+        methods: {
+            create(state) {
+                this.createModal = state;
+            },
+            errorHandler(err) {
+                this.$emit('error', err.response.data);
+            }
+        },
+        emits: ['error']
     }
 </script>
+
+<style scoped>
+    .configs {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .table {
+        margin: 18px;
+        border-radius: 12px;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    .icon {
+        color: black;
+    }
+
+    .icon:hover {
+        color: rgb(115, 220, 80);
+    }
+
+    .icon.bi-trash-fill:hover {
+        color: rgb(220, 80, 80);
+    }
+</style>

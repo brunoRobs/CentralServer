@@ -13,19 +13,25 @@
                 <li class="item" @click="logout()"><i class="icon bi-box-arrow-in-left" /></li>
             </ul>
         </div>
-        <RouterView />
+        <RouterView @error="errorHandler" />
     </div>
 
 </template>
 
 <script>
-    import { authManager } from '@/managers/auth_manager';
+    import { authManager } from '@/managers/auth_manager.js';
 
     const page = (name) => {
         return { name: name }
     }
 
     export default {
+        beforeRouteEnter(to, from, next) {
+            if (localStorage.getItem('token') && localStorage.getItem('role')) {
+                authManager.load(localStorage.getItem('token'), localStorage.getItem('role'));
+                next();
+            } else next(page('login'));
+        },
         beforeMount() {
             this.goTo('configs');
         },
@@ -37,8 +43,12 @@
                 await authManager.logout().then(response => {
                     if (response) this.goTo('login');
                 });
-            }
-        }
+            },
+            errorHandler(err) {
+                this.$toast.error(err.response.data, this.$toast.settings);
+            },
+        },
+        emits: ['error']
     }
 </script>
 

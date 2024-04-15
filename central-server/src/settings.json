@@ -1,19 +1,18 @@
 {
     "api": {
+        "baseURL": "http://localhost:8080/CentralServerConfig",
         "auth": {
-            "baseURL": "http://localhost:8080/CentralServerConfig/auth",
-            "register": "/signup",
-            "login": "/signin",
-            "logout": "/signout"
+            "register": "/auth/signup",
+            "login": "/auth/signin",
+            "logout": "/auth/signout"
         },
         "agents": {},
         "configs": {
-            "baseURL": "http://localhost:8080/CentralServerConfig/config",
-            "create": "/create",
-            "get": "/id",
-            "update": "/id",
-            "delete": "/id",
-            "getAll": ""
+            "create": "/config/create",
+            "get": "/config/id",
+            "update": "/config/id",
+            "delete": "/config/id",
+            "getAll": "/config"
         },
         "extensions": {},
         "logs": {},

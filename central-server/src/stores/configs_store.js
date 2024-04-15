@@ -3,12 +3,19 @@ import { chunk } from "lodash";
 
 export const useConfigsStore = defineStore("configsStore", {
     state: () => ({
-        configs: []
+        configs: [],
+        id: ''
     }),
     actions: {
         updateStore(configs) {
             this.$reset();
             this.configs = chunk(configs, 5);
+        },
+        setId(id) {
+            this.id = id;
+        },
+        getId() {
+            return this.id;
         },
         getConfigs(page) {
             return this.configs[page - 1];

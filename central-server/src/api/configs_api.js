@@ -1,9 +1,5 @@
-import axios from 'axios';
+import api from './api';
 import settings from '../settings.json';
-
-const api = axios.create({
-    baseURL: settings.api.configs.baseURL
-});
 
 class ConfigsAPI {
     async create(object) {
@@ -28,14 +24,14 @@ class ConfigsAPI {
     }
 
     async delete(id) {
-        const response = api.post(settings.api.configs.delete.replace('id', id)).then(response => {
+        const response = api.delete(settings.api.configs.delete.replace('id', id)).then(response => {
             return response;
         });
         return response;
     }
 
     async getAll() {
-        const response = api.post(settings.api.configs.getAll).then(response => {
+        const response = api.get(settings.api.configs.getAll).then(response => {
             return response;
         });
         return response;

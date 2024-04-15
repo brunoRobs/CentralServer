@@ -1,13 +1,13 @@
 <template>
     <div class="login">
         <p class="name">central server</p>
-        <input type="text" class="input" placeholder="username" v-model="credentials.username">
-        <input type="password" class="input" placeholder="password" v-model="credentials.password">
+        <input type="text" class="input" placeholder="username" autocomplete="off" v-model="credentials.username">
+        <input type="password" class="input" placeholder="password" autocomplete="off" v-model="credentials.password">
         <div class="commands">
             <i title="Sign up" class="icon bi-plus-lg" @click="showModal = true" />
             <i title="Sign in" class="icon bi-box-arrow-in-right" @click="login()" />
         </div>
-        <Modal :show-modal="showModal" @close="showModal = false" :component="component" />
+        <Modal :show-modal="showModal" :component="register" @close="showModal = false" />
     </div>
 </template>
 
@@ -29,14 +29,20 @@
                     password: ''
                 },
                 showModal: false,
-                component: Register
+                register: Register
             }
         },
         methods: {
             async login() {
-                await authManager.login(this.credentials).then(response => {
-                    if (response) this.$router.push(page('home'));
-                });
+                try {
+                    await authManager.login(this.credentials).then(response => {
+                        if (response) {
+                            this.$router.push(page('home'))
+                        };
+                    });
+                } catch (err) {
+                    this.$toast.error(err.response.data, this.$toast.settings);
+                }
             }
         }
     }

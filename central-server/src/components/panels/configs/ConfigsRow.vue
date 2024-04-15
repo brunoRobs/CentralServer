@@ -1,16 +1,23 @@
 <template>
+    <Modal :showModal="editModal" :component="editConfig" @close="edit(false)" />
+    <Modal :showModal="deleteModal" :component="deleteConfig" @close="del(false)" />
     <td v-for="(data, index) in config" :key="`${data}:${index}`">
         {{ data }}
     </td>
     <td>
-        <i class="icon bi-pencil-fill" @click="edit()" />
+        <i title="Edit config" class="icon bi-pencil-fill" @click="edit(true)" />
     </td>
     <td>
-        <i class="icon bi-trash-fill" @click="del()" />
+        <i title="Delete config" class="icon bi-trash-fill" @click="del(true)" />
     </td>
 </template>
 
 <script>
+    import Modal from '@/components/Modal.vue';
+    import EditConfig from './EditConfig.vue';
+    import DeleteConfig from './DeleteConfig.vue';
+    import { useConfigsStore } from '@/stores/configs_store';
+
     export default {
         props: {
             config: {
@@ -18,20 +25,33 @@
                 required: true
             }
         },
-        methods: {
-            edit() {
-                this.$emits('edit', this.$props.config.id)
-            },
-            del() {
-                this.$emit('delete', this.$props.config.id)
+        components: { Modal },
+        data() {
+            return {
+                editModal: false,
+                deleteModal: false,
+                editConfig: EditConfig,
+                deleteConfig: DeleteConfig
             }
         },
-        emits: ['edit', 'delete']
+        methods: {
+            edit(state) {
+                useConfigsStore().setId(this.$props.config.id);
+                this.editModal = state;
+            },
+            del(state) {
+                this.deleteModal = state;
+            }
+        }
     }
 </script>
 
 <style scoped>
-    .icon.bi-pencil-fill:hover {
+    .icon {
+        color: black;
+    }
+
+    .icon:hover {
         color: rgb(115, 220, 80);
     }
 
