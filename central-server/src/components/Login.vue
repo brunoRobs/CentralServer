@@ -4,8 +4,8 @@
         <input type="text" class="input" placeholder="username" autocomplete="off" v-model="credentials.username">
         <input type="password" class="input" placeholder="password" autocomplete="off" v-model="credentials.password">
         <div class="commands">
-            <i title="Sign up" class="icon bi-plus-lg" @click="showModal = true" />
-            <i title="Sign in" class="icon bi-box-arrow-in-right" @click="login()" />
+            <i title="Sign up" class="icon bi-plus-square" @click="showModal = true" />
+            <i title="Sign in" class="icon bi-arrow-right-square" @click="login()" />
         </div>
         <Modal :show-modal="showModal" :component="register" @close="showModal = false" />
     </div>
@@ -50,7 +50,7 @@
 
 <style scoped>
     .login {
-        background-color: rgb(60, 60, 60);
+        background: linear-gradient(120deg, rgb(255, 255, 255), rgb(15, 64, 96));
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -61,8 +61,8 @@
 
     .name {
         margin: 0;
-        color: white;
-        font-size: 24px;
+        color: rgb(255, 255, 255);
+        font-size: 32px;
         text-transform: capitalize;
     }
 
@@ -72,10 +72,11 @@
     }
 
     .icon {
+        color: rgb(255, 255, 255);
         margin: 0 10px;
     }
 
     .icon:hover {
-        color: rgb(115, 220, 80);
+        color: rgb(85, 169, 56);
     }
 </style>

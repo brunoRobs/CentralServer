@@ -40,6 +40,7 @@
                 this.editModal = state;
             },
             del(state) {
+                useConfigsStore().setId(this.$props.config.id);
                 this.deleteModal = state;
             }
         }
@@ -52,10 +53,10 @@
     }
 
     .icon:hover {
-        color: rgb(115, 220, 80);
+        color: rgb(85, 169, 56);
     }
 
     .icon.bi-trash-fill:hover {
-        color: rgb(220, 80, 80);
+        color: rgb(244, 84, 84);
     }
 </style>

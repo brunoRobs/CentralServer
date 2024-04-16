@@ -1,19 +1,20 @@
 <template>
     <div class="home">
+        <p class="name">central server</p>
         <div class="panels">
             <ul class="navigation">
-                <li class="item" @click="goTo('agents')">agents</li>
-                <li class="item" @click="goTo('configs')">configs</li>
-                <li class="item" @click="goTo('extensions')">extensions</li>
-                <li class="item" @click="goTo('logs')">logs</li>
-                <li class="item" @click="goTo('profiles')">profiles</li>
-                <li class="item" @click="goTo('superusers')">superusers</li>
-                <li class="item" @click="goTo('tenants')">tenants</li>
-                <li class="item" @click="goTo('users')">users</li>
-                <li class="item" @click="logout()"><i class="icon bi-box-arrow-in-left" /></li>
+                <li class="item" @click="goTo('agents')"><i class="icon bi-person-badge-fill" /> agents</li>
+                <li class="item" @click="goTo('configs')"><i class="icon bi-gear-fill" /> configs</li>
+                <li class="item" @click="goTo('extensions')"><i class="icon bi-tools" /> extensions</li>
+                <li class="item" @click="goTo('logs')"><i class="icon bi-file-earmark-text-fill" /> logs</li>
+                <li class="item" @click="goTo('profiles')"><i class="icon bi-person-vcard-fill" /> profiles</li>
+                <li class="item" @click="goTo('superusers')"><i class="icon bi-person-plus-fill" /> superusers</li>
+                <li class="item" @click="goTo('tenants')"><i class="icon bi-houses-fill" /> tenants</li>
+                <li class="item" @click="goTo('users')"><i class="icon bi-person-fill" /> users</li>
+                <i class="item icon bi-arrow-left" @click="logout()" />
             </ul>
+            <RouterView @error="errorHandler" />
         </div>
-        <RouterView @error="errorHandler" />
     </div>
 
 </template>
@@ -54,7 +55,7 @@
 
 <style scoped>
     .home {
-        background-color: rgb(60, 60, 60);
+        background-color: rgb(68, 94, 145, 0.5);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -63,28 +64,45 @@
         border-radius: 8px;
     }
 
-    .navigation {
+    .name {
         margin: 0;
-        padding: 0;
+        color: rgb(255, 255, 255);
+        font-size: 32px;
+        text-transform: capitalize;
+    }
+
+    .panels {
         display: flex;
         flex-direction: row;
         align-items: center;
+    }
+
+    .navigation {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0;
+        margin: 0 24px 0 0;
         list-style-type: none;
     }
 
     .item {
-        color: white;
+        margin: 12px 32px 12px 0;
+        padding: 2px 8px;
+        color: rgb(255, 255, 255);
+        background: linear-gradient(120deg, rgb(98, 84, 244), rgb(22, 21, 64));
+        border-radius: 8px;
         cursor: pointer;
-        text-transform: capitalize;
         font-size: 16px;
-        margin: 0 10px;
+        text-transform: capitalize;
+    }
+
+    .item.icon {
+        background: linear-gradient(120deg, rgb(244, 84, 84), rgb(64, 21, 21));
+        font-size: 24px;
     }
 
     .item:hover {
-        color: rgb(115, 220, 80);
-    }
-
-    .item .icon:hover {
-        color: rgb(220, 80, 80);
+        filter: brightness(75%);
     }
 </style>

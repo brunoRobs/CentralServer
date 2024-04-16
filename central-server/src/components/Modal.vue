@@ -51,6 +51,6 @@
     }
 
     .icon {
-        color: rgb(220, 80, 80);
+        color: rgb(244, 84, 84);
     }
 </style>

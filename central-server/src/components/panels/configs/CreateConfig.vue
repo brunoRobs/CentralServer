@@ -32,6 +32,7 @@
                 try {
                     const json = JSON.parse(this.object);
                     await configsManager.create(json);
+                    this.$toast.success('Config created successfully', this.$toast.settings);
                 } catch (err) {
                     this.$toast.error(err.response.data, this.$toast.settings);
                 }
@@ -50,19 +51,19 @@
     }
 
     .rightFormat {
-        border-color: rgb(115, 220, 80);
+        border-color: rgb(85, 169, 56);
     }
 
     .wrongFormat {
-        border-color: rgb(220, 80, 80);
+        border-color: rgb(244, 84, 84);
     }
 
     .icon.rightFormat {
-        color: rgb(115, 220, 80);
+        color: rgb(85, 169, 56);
     }
 
     .icon.wrongFormat {
-        color: rgb(220, 80, 80);
+        color: rgb(244, 84, 84);
         cursor: default;
         pointer-events: none;
     }
